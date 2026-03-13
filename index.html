@@ -1671,32 +1671,27 @@
     const data = collectData();
 
     // ——— INTEGRAÇÃO RESEND ———
-    // Para ativar, substitua a URL abaixo pela sua API route ou endpoint que chama o Resend.
-    // Exemplo de body esperado pelo endpoint: { to, subject, text }
-    //
-    // const RESEND_ENDPOINT = 'https://SEU_ENDPOINT_AQUI/api/send-email';
-    //
-    // try {
-    //   const res = await fetch(RESEND_ENDPOINT, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //       to: 'contato@azumirh.com.br',
-    //       subject: `Pré-Diagnóstico HRaaS — ${data.empresa_nome}`,
-    //       text: formatEmailBody(data)
-    //     })
-    //   });
-    //   if (!res.ok) throw new Error('Erro no envio');
-    // } catch(err) {
-    //   showToast('Erro ao enviar. Tente novamente.', true);
-    //   btn.disabled = false; btnText.textContent = 'Enviar pré-diagnóstico';
-    //   btnSpinner.style.display = 'none'; btnArrow.style.display = 'inline';
-    //   return;
-    // }
-    // ——————————————————————
+    const RESEND_ENDPOINT = 'https://azumi-email-api.vercel.app/api/send-email';
 
-    // Simulação (remover quando Resend estiver integrado)
-    await new Promise(r => setTimeout(r, 1200));
+    try {
+      const res = await fetch(RESEND_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: `Pré-Diagnóstico HRaaS — ${data.empresa_nome || 'Cliente'}`,
+          text: formatEmailBody(data)
+        })
+      });
+      if (!res.ok) throw new Error('Erro no envio');
+    } catch(err) {
+      showToast('Erro ao enviar. Tente novamente.', true);
+      btn.disabled = false;
+      btnText.textContent = 'Enviar pré-diagnóstico';
+      btnSpinner.style.display = 'none';
+      btnArrow.style.display = 'inline';
+      return;
+    }
+    // ——————————————————————
 
     // Show thank you
     document.getElementById('form-page').style.display = 'none';
