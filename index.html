@@ -874,6 +874,50 @@
             </div>
           </div>
 
+          <hr class="q-divider">
+
+          <div class="question">
+            <label>Visitas presenciais da consultora — quantas por mês você idealizaria? <span class="req">*</span></label>
+            <span class="hint">Cada visita tem duração de até 3 horas e influencia diretamente na quantidade de reuniões mensais do contrato.</span>
+            <div class="options-grid cols-2">
+              <div class="opt-card">
+                <input type="radio" name="visitas_mes" id="vis1" value="1x">
+                <label for="vis1"><span class="opt-mark"></span>1x por mês</label>
+              </div>
+              <div class="opt-card">
+                <input type="radio" name="visitas_mes" id="vis2" value="2x">
+                <label for="vis2"><span class="opt-mark"></span>2x por mês</label>
+              </div>
+              <div class="opt-card">
+                <input type="radio" name="visitas_mes" id="vis3" value="somente_remoto">
+                <label for="vis3"><span class="opt-mark"></span>Prefiro atendimento remoto</label>
+              </div>
+              <div class="opt-card">
+                <input type="radio" name="visitas_mes" id="vis4" value="a_definir">
+                <label for="vis4"><span class="opt-mark"></span>A definir conforme necessidade</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="question">
+            <label>A empresa fica em Curitiba ou região metropolitana?</label>
+            <span class="hint">Para cidades fora de Curitiba e região metropolitana (ex: São José dos Pinhais, Pinhais e demais municípios), há adicional por km rodado nas visitas presenciais.</span>
+            <div class="options-grid cols-1">
+              <div class="opt-card">
+                <input type="radio" name="localizacao_visita" id="loc1" value="curitiba">
+                <label for="loc1"><span class="opt-mark"></span>Sim — Curitiba ou região metropolitana (sem adicional de deslocamento)</label>
+              </div>
+              <div class="opt-card">
+                <input type="radio" name="localizacao_visita" id="loc2" value="fora_regiao">
+                <label for="loc2"><span class="opt-mark"></span>Não — cidade fora da região metropolitana (adicional por km aplicável)</label>
+              </div>
+              <div class="opt-card">
+                <input type="radio" name="localizacao_visita" id="loc3" value="remoto_apenas">
+                <label for="loc3"><span class="opt-mark"></span>Atendimento 100% remoto — não haverá visitas presenciais</label>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -1505,7 +1549,7 @@
         </div>
         <div class="ty-step-info">
           <div class="ty-step-label">E-mail</div>
-          <div class="ty-step-value">contato@azumirh.com.br</div>
+          <div class="ty-step-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="472428293326332807263d322a2e352f6924282a692535">[email&#160;protected]</a></div>
         </div>
       </div>
     </div>
@@ -1517,7 +1561,7 @@
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function toggleSection(header) {
     const section = header.closest('.section');
     section.classList.toggle('open');
@@ -1602,7 +1646,9 @@
     body += `🏢 EMPRESA\n${sep}\n`;
     body += `Colaboradores: ${data.num_colaboradores || '-'}\n`;
     body += `Unidades:      ${data.num_unidades || '-'}\n`;
-    body += `Vagas/mês:     ${data.vagas_mes || '-'}\n\n`;
+    body += `Vagas/mês:     ${data.vagas_mes || '-'}\n`;
+    body += `Visitas/mês:   ${data.visitas_mes || '-'}\n`;
+    body += `Localização:   ${data.localizacao_visita || '-'}\n\n`;
     body += `🗂 RH ATUAL\n${sep}\n`;
     body += `Estrutura:     ${data.rh_atual || '-'}\n`;
     body += `Documentação:  ${data.docs_rh || '-'}\n`;
@@ -1699,14 +1745,4 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  document.querySelectorAll('input, select, textarea').forEach(el => {
-    el.addEventListener('change', updateProgress);
-    el.addEventListener('input', updateProgress);
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    updateProgress();
-  });
-</script>
-</body>
-</html>
+  document.querySelectorAll('input, select, textarea').forEac
