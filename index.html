@@ -1438,7 +1438,6 @@
       </div>
 
       <div class="submit-area">
-        <p class="submit-note">Suas respostas serão analisadas pelo nosso time de especialistas antes da proposta.<br>Isso normalmente leva até 36h.</p>
         <button type="submit" class="btn-submit" id="btnSubmit">
           <span id="btnText">Enviar pré-diagnóstico</span>
           <div class="spinner" id="btnSpinner"></div>
@@ -1481,9 +1480,6 @@
     <div class="ty-badge">Diagnóstico recebido</div>
 
     <h2 class="ty-title">Recebemos tudo, <span id="ty-name">obrigada</span>!</h2>
-    <p class="ty-text">
-      Suas respostas já estão com o nosso time! Vamos analisar o perfil da <strong id="ty-empresa"></strong> e entrar em contato em breve com uma proposta personalizada!
-    </p>
 
     <div class="ty-steps">
       <div class="ty-step">
@@ -1518,7 +1514,7 @@
         </div>
         <div class="ty-step-info">
           <div class="ty-step-label">E-mail</div>
-          <div class="ty-step-value">contato@azumirh.com.br</div>
+          <div class="ty-step-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="482b27263c293c270829323d25213a20662b2725662a3a">[email&#160;protected]</a></div>
         </div>
       </div>
     </div>
@@ -1530,7 +1526,7 @@
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Toggle sections
   function toggleSection(header) {
     const section = header.closest('.section');
@@ -1738,15 +1734,4 @@
   });
 
   // Auto open sections
-  document.querySelectorAll('input, select, textarea').forEach(el => {
-    el.addEventListener('change', updateProgress);
-    el.addEventListener('input', updateProgress);
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    updateProgress();
-  });
-
-</script>
-</body>
-</html>
+  document.querySelectorAll('input, select, textarea').forEach
