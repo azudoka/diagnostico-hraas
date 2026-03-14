@@ -674,6 +674,7 @@
     font-size: 13px;
     font-weight: 600;
     color: var(--text-primary);
+    white-space: nowrap;
   }
 
   .ty-step-divider {
@@ -798,7 +799,7 @@
           <div class="row-2">
             <div class="question">
               <label>Nome da empresa <span class="req">*</span></label>
-              <input type="text" name="empresa_nome" placeholder="Ex: Sauk TI" required>
+              <input type="text" name="empresa_nome" placeholder="Ex: Claro Empresas" required>
             </div>
             <div class="question">
               <label>Nome do decisor <span class="req">*</span></label>
@@ -1437,7 +1438,7 @@
       </div>
 
       <div class="submit-area">
-        <p class="submit-note">Suas respostas serão analisadas pela Pati antes da proposta.<br>Isso normalmente leva menos de 24h úteis.</p>
+        <p class="submit-note">Suas respostas serão analisadas pelo nosso time de especialistas antes da proposta.<br>Isso normalmente leva até 36h.</p>
         <button type="submit" class="btn-submit" id="btnSubmit">
           <span id="btnText">Enviar pré-diagnóstico</span>
           <div class="spinner" id="btnSpinner"></div>
@@ -1479,9 +1480,9 @@
 
     <div class="ty-badge">Diagnóstico recebido</div>
 
-    <h2 class="ty-title">Recebemos tudo, <span id="ty-name">obrigado</span>!</h2>
+    <h2 class="ty-title">Recebemos tudo, <span id="ty-name">obrigada</span>!</h2>
     <p class="ty-text">
-      Suas respostas já estão com a Pati. Ela vai analisar o perfil da <strong id="ty-empresa"></strong> e entrar em contato com uma proposta personalizada.
+      Suas respostas já estão com o nosso time! Vamos analisar o perfil da <strong id="ty-empresa"></strong> e entrar em contato em breve com uma proposta personalizada!
     </p>
 
     <div class="ty-steps">
@@ -1493,7 +1494,7 @@
         </div>
         <div class="ty-step-info">
           <div class="ty-step-label">Prazo de retorno</div>
-          <div class="ty-step-value">Até 1 dia útil</div>
+          <div class="ty-step-value">Até 36 horas</div>
         </div>
       </div>
       <div class="ty-step-divider"></div>
@@ -1517,12 +1518,12 @@
         </div>
         <div class="ty-step-info">
           <div class="ty-step-label">E-mail</div>
-          <div class="ty-step-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7d4d8d9c3d6c3d8f7d6cdc2dadec5df99d4d8da99d5c5">[email&#160;protected]</a></div>
+          <div class="ty-step-value">contato@azumirh.com.br</div>
         </div>
       </div>
     </div>
 
-    <p class="ty-slogan">Suas empresas, nosso objetivo.</p>
+    <p class="ty-slogan">Cuidar de pessoas é estratégico.</p>
   </div>
 
 </div>
@@ -1594,11 +1595,8 @@
     const form = document.getElementById('mainForm');
     const data = {};
     const fd = new FormData(form);
-
-    // checkboxes multi
     const multiFields = ['plataformas', 'frentes'];
     multiFields.forEach(f => data[f] = []);
-
     for (let [k, v] of fd.entries()) {
       if (multiFields.includes(k)) {
         data[k].push(v);
@@ -1630,39 +1628,39 @@
     body += `Vagas/mês:     ${data.vagas_mes || '-'}\n\n`;
 
     body += `🗂 RH ATUAL\n${sep}\n`;
-    body += `Estrutura:        ${data.rh_atual || '-'}\n`;
-    body += `Documentação:     ${data.docs_rh || '-'}\n`;
-    body += `Plataformas:      ${(data.plataformas||[]).join(', ') || '-'}\n\n`;
+    body += `Estrutura:     ${data.rh_atual || '-'}\n`;
+    body += `Documentação:  ${data.docs_rh || '-'}\n`;
+    body += `Plataformas:   ${(data.plataformas||[]).join(', ') || '-'}\n\n`;
 
     body += `🔍 RECRUTAMENTO\n${sep}\n`;
-    body += `Dificuldade:       ${data.dif_contratar || '-'}\n`;
-    body += `Processo seletivo: ${data.processo_seletivo || '-'}\n\n`;
+    body += `Dificuldade:        ${data.dif_contratar || '-'}\n`;
+    body += `Processo seletivo:  ${data.processo_seletivo || '-'}\n\n`;
 
     body += `🚀 ONBOARDING\n${sep}\n`;
     body += `Integração:   ${data.onboarding || '-'}\n`;
     body += `Outsourcing:  ${data.onboarding_outsourcing || '-'}\n\n`;
 
     body += `👥 LIDERANÇA & PERFORMANCE\n${sep}\n`;
-    body += `Maturidade liderança (1-5): ${data.maturidade_lideranca || '-'}\n`;
-    body += `Avaliação desempenho:       ${data.avaliacao_desempenho || '-'}\n`;
-    body += `Gestão outsourcing:         ${data.gestao_outsourcing || '-'}\n\n`;
+    body += `Maturidade liderança (1-5):  ${data.maturidade_lideranca || '-'}\n`;
+    body += `Avaliação desempenho:        ${data.avaliacao_desempenho || '-'}\n`;
+    body += `Gestão outsourcing:          ${data.gestao_outsourcing || '-'}\n\n`;
 
     body += `🧠 CLIMA & RISCO PSICOSSOCIAL\n${sep}\n`;
-    body += `Risco NR-01 mapeado: ${data.risco_psicossocial || '-'}\n`;
-    body += `Canal de escuta:     ${data.canal_escuta || '-'}\n`;
-    body += `Clima (1-5):         ${data.clima_equipe || '-'}\n`;
-    body += `Histórico conflitos: ${data.historico_conflitos || '-'}\n\n`;
+    body += `Risco NR-01 mapeado:  ${data.risco_psicossocial || '-'}\n`;
+    body += `Canal de escuta:      ${data.canal_escuta || '-'}\n`;
+    body += `Clima (1-5):          ${data.clima_equipe || '-'}\n`;
+    body += `Histórico conflitos:  ${data.historico_conflitos || '-'}\n\n`;
 
     body += `⚖️ COMPLIANCE\n${sep}\n`;
-    body += `NRs implementadas:     ${data.nrs || '-'}\n`;
-    body += `Registros assinados:   ${data.registros_assinados || '-'}\n`;
-    body += `Reclamação trabalhista:${data.reclamacao_trabalhista || '-'}\n\n`;
+    body += `NRs implementadas:      ${data.nrs || '-'}\n`;
+    body += `Registros assinados:    ${data.registros_assinados || '-'}\n`;
+    body += `Reclamação trabalhista: ${data.reclamacao_trabalhista || '-'}\n\n`;
 
     body += `🎯 PRIORIDADES\n${sep}\n`;
-    body += `Frentes escolhidas: ${(data.frentes||[]).join(', ') || '-'}\n`;
-    body += `Prioridade 90 dias: ${data.prioridade_90dias || '-'}\n`;
-    body += `Urgência:           ${data.urgencia || '-'}\n`;
-    body += `Início esperado:    ${data.inicio || '-'}\n\n`;
+    body += `Frentes escolhidas:  ${(data.frentes||[]).join(', ') || '-'}\n`;
+    body += `Prioridade 90 dias:  ${data.prioridade_90dias || '-'}\n`;
+    body += `Urgência:            ${data.urgencia || '-'}\n`;
+    body += `Início esperado:     ${data.inicio || '-'}\n\n`;
 
     if (data.observacoes) {
       body += `💬 OBSERVAÇÕES\n${sep}\n`;
@@ -1680,7 +1678,6 @@
   document.getElementById('mainForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // Basic validation
     const empresa = document.querySelector('[name="empresa_nome"]').value.trim();
     const decisor = document.querySelector('[name="decisor_nome"]').value.trim();
     const email = document.querySelector('[name="email"]').value.trim();
@@ -1738,10 +1735,6 @@
     document.getElementById('ty-name').textContent = data.decisor_nome || '';
     document.getElementById('ty-empresa').textContent = data.empresa_nome || 'sua empresa';
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Log para debug (remover em produção)
-    console.log('DADOS DO FORMULÁRIO:', data);
-    console.log('EMAIL BODY:\n', formatEmailBody(data));
   });
 
   // Auto open sections
@@ -1750,7 +1743,6 @@
     el.addEventListener('input', updateProgress);
   });
 
-  // Todas as seções fechadas exceto a 1 — garantir ao carregar
   document.addEventListener('DOMContentLoaded', function() {
     updateProgress();
   });
