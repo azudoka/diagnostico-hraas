@@ -602,7 +602,7 @@
     font-size: clamp(26px, 5vw, 36px);
     font-weight: 700;
     letter-spacing: -0.8px;
-    margin-bottom: 14px;
+    margin-bottom: 36px;
     line-height: 1.2;
   }
 
@@ -612,16 +612,6 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-
-  .ty-text {
-    color: var(--text-secondary);
-    font-size: 15px;
-    line-height: 1.7;
-    max-width: 440px;
-    margin: 0 auto 40px;
-  }
-
-  .ty-text strong { color: var(--text-primary); }
 
   .ty-steps {
     display: flex;
@@ -1437,6 +1427,7 @@
         </div>
       </div>
 
+      <!-- SUBMIT: texto de rodapé removido conforme solicitado -->
       <div class="submit-area">
         <button type="submit" class="btn-submit" id="btnSubmit">
           <span id="btnText">Enviar pré-diagnóstico</span>
@@ -1448,7 +1439,7 @@
     </form>
   </div>
 
-  <!-- THANK YOU PAGE -->
+  <!-- THANK YOU PAGE: texto de corpo removido conforme solicitado -->
   <div id="thank-you">
 
     <div class="ty-logo">
@@ -1514,7 +1505,7 @@
         </div>
         <div class="ty-step-info">
           <div class="ty-step-label">E-mail</div>
-          <div class="ty-step-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="482b27263c293c270829323d25213a20662b2725662a3a">[email&#160;protected]</a></div>
+          <div class="ty-step-value">contato@azumirh.com.br</div>
         </div>
       </div>
     </div>
@@ -1526,15 +1517,13 @@
 
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Toggle sections
+<script>
   function toggleSection(header) {
     const section = header.closest('.section');
     section.classList.toggle('open');
     updateProgress();
   }
 
-  // Scale buttons
   function setScale(btn) {
     const name = btn.dataset.name;
     const val = btn.dataset.val;
@@ -1543,7 +1532,6 @@
     document.getElementById(name + '_val').value = val;
   }
 
-  // Limit frente checkboxes to 3
   function limitFrente() {
     const checks = document.querySelectorAll('input[name="frentes"]:checked');
     if (checks.length >= 3) {
@@ -1559,7 +1547,6 @@
     }
   }
 
-  // Progress calculation
   function updateProgress() {
     const sections = document.querySelectorAll('.section');
     let filled = 0;
@@ -1578,7 +1565,6 @@
     document.getElementById('progressPct').textContent = pct + '%';
   }
 
-  // Toast
   function showToast(msg, isError) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -1586,7 +1572,6 @@
     setTimeout(() => t.classList.remove('show'), 4000);
   }
 
-  // Collect form data
   function collectData() {
     const form = document.getElementById('mainForm');
     const data = {};
@@ -1603,74 +1588,59 @@
     return data;
   }
 
-  // Format email body
   function formatEmailBody(data) {
     const sep = '─'.repeat(40);
-
     let body = '';
     body += `╔══════════════════════════════════════════╗\n`;
     body += `   PRÉ-DIAGNÓSTICO HRaaS\n`;
     body += `   ${data.empresa_nome || 'Cliente'} · ${data.cidade || ''} · ${data.estado || ''}\n`;
     body += `╚══════════════════════════════════════════╝\n\n`;
-
     body += `👤 CONTATO\n${sep}\n`;
     body += `Decisor:      ${data.decisor_nome || '-'}\n`;
     body += `E-mail:       ${data.email || '-'}\n`;
     body += `WhatsApp:     ${data.whatsapp || '-'}\n\n`;
-
     body += `🏢 EMPRESA\n${sep}\n`;
     body += `Colaboradores: ${data.num_colaboradores || '-'}\n`;
     body += `Unidades:      ${data.num_unidades || '-'}\n`;
     body += `Vagas/mês:     ${data.vagas_mes || '-'}\n\n`;
-
     body += `🗂 RH ATUAL\n${sep}\n`;
     body += `Estrutura:     ${data.rh_atual || '-'}\n`;
     body += `Documentação:  ${data.docs_rh || '-'}\n`;
     body += `Plataformas:   ${(data.plataformas||[]).join(', ') || '-'}\n\n`;
-
     body += `🔍 RECRUTAMENTO\n${sep}\n`;
     body += `Dificuldade:        ${data.dif_contratar || '-'}\n`;
     body += `Processo seletivo:  ${data.processo_seletivo || '-'}\n\n`;
-
     body += `🚀 ONBOARDING\n${sep}\n`;
     body += `Integração:   ${data.onboarding || '-'}\n`;
     body += `Outsourcing:  ${data.onboarding_outsourcing || '-'}\n\n`;
-
     body += `👥 LIDERANÇA & PERFORMANCE\n${sep}\n`;
     body += `Maturidade liderança (1-5):  ${data.maturidade_lideranca || '-'}\n`;
     body += `Avaliação desempenho:        ${data.avaliacao_desempenho || '-'}\n`;
     body += `Gestão outsourcing:          ${data.gestao_outsourcing || '-'}\n\n`;
-
     body += `🧠 CLIMA & RISCO PSICOSSOCIAL\n${sep}\n`;
     body += `Risco NR-01 mapeado:  ${data.risco_psicossocial || '-'}\n`;
     body += `Canal de escuta:      ${data.canal_escuta || '-'}\n`;
     body += `Clima (1-5):          ${data.clima_equipe || '-'}\n`;
     body += `Histórico conflitos:  ${data.historico_conflitos || '-'}\n\n`;
-
     body += `⚖️ COMPLIANCE\n${sep}\n`;
     body += `NRs implementadas:      ${data.nrs || '-'}\n`;
     body += `Registros assinados:    ${data.registros_assinados || '-'}\n`;
     body += `Reclamação trabalhista: ${data.reclamacao_trabalhista || '-'}\n\n`;
-
     body += `🎯 PRIORIDADES\n${sep}\n`;
-    body += `Frentes escolhidas:  ${(data.frentes||[]).join(', ') || '-'}\n`;
-    body += `Prioridade 90 dias:  ${data.prioridade_90dias || '-'}\n`;
-    body += `Urgência:            ${data.urgencia || '-'}\n`;
-    body += `Início esperado:     ${data.inicio || '-'}\n\n`;
-
+    body += `Frentes escolhidas: ${(data.frentes||[]).join(', ') || '-'}\n`;
+    body += `Prioridade 90 dias: ${data.prioridade_90dias || '-'}\n`;
+    body += `Urgência:           ${data.urgencia || '-'}\n`;
+    body += `Início esperado:    ${data.inicio || '-'}\n\n`;
     if (data.observacoes) {
       body += `💬 OBSERVAÇÕES\n${sep}\n`;
       body += `${data.observacoes}\n\n`;
     }
-
     body += `─────────────────────────────────────────\n`;
     body += `Enviado via diagnostico.azumirh.com.br\n`;
     body += `Azumi RH · Cuidar de pessoas é estratégico.\n`;
-
     return body;
   }
 
-  // Submit
   document.getElementById('mainForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -1701,9 +1671,7 @@
 
     const data = collectData();
 
-    // ——— INTEGRAÇÃO RESEND ———
     const RESEND_ENDPOINT = 'https://azumi-email-api.vercel.app/api/send-email';
-
     try {
       const res = await fetch(RESEND_ENDPOINT, {
         method: 'POST',
@@ -1722,9 +1690,7 @@
       btnArrow.style.display = 'inline';
       return;
     }
-    // ——————————————————————
 
-    // Show thank you
     document.getElementById('form-page').style.display = 'none';
     const ty = document.getElementById('thank-you');
     ty.style.display = 'block';
@@ -1733,5 +1699,14 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // Auto open sections
-  document.querySelectorAll('input, select, textarea').forEach
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('change', updateProgress);
+    el.addEventListener('input', updateProgress);
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    updateProgress();
+  });
+</script>
+</body>
+</html>
