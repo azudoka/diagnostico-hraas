@@ -941,23 +941,158 @@
             <label>Como o RH é gerenciado hoje na empresa? <span class="req">*</span></label>
             <div class="options-grid cols-1">
               <div class="opt-card">
-                <input type="radio" name="rh_atual" id="rh1" value="sem_rh" required>
+                <input type="radio" name="rh_atual" id="rh1" value="sem_rh" required onchange="onRhAtual(this.value)">
                 <label for="rh1"><span class="opt-mark"></span>Não há ninguém dedicado — acúmulo de função (sócio, financeiro etc.)</label>
               </div>
               <div class="opt-card">
-                <input type="radio" name="rh_atual" id="rh2" value="rh_operacional">
+                <input type="radio" name="rh_atual" id="rh2" value="rh_operacional" onchange="onRhAtual(this.value)">
                 <label for="rh2"><span class="opt-mark"></span>Temos alguém, mas faz só o operacional (folha, admissão, demissão)</label>
               </div>
               <div class="opt-card">
-                <input type="radio" name="rh_atual" id="rh3" value="rh_interno">
+                <input type="radio" name="rh_atual" id="rh3" value="rh_interno" onchange="onRhAtual(this.value)">
                 <label for="rh3"><span class="opt-mark"></span>Temos um RH interno mais estruturado</label>
               </div>
               <div class="opt-card">
-                <input type="radio" name="rh_atual" id="rh4" value="psicologa">
+                <input type="radio" name="rh_atual" id="rh4" value="psicologa" onchange="onRhAtual(this.value)">
                 <label for="rh4"><span class="opt-mark"></span>Temos psicólogo(a) atuando internamente</label>
               </div>
             </div>
           </div>
+
+          <!-- ★ BLOCO RH INTERNO: aparece quando há alguém de RH na empresa -->
+          <div id="bloco-rh-interno" style="display:none">
+            <hr class="q-divider">
+            <div class="question">
+              <label>Qual o nível de senioridade dessa pessoa?</label>
+              <div class="options-grid cols-1">
+                <div class="opt-card">
+                  <input type="radio" name="rh_senioridade" id="rhs1" value="assistente_junior">
+                  <label for="rhs1"><span class="opt-mark"></span>Assistente / Auxiliar — executa tarefas com supervisão</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_senioridade" id="rhs2" value="analista_pleno">
+                  <label for="rhs2"><span class="opt-mark"></span>Analista pleno — atua com autonomia nas rotinas</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_senioridade" id="rhs3" value="analista_senior">
+                  <label for="rhs3"><span class="opt-mark"></span>Analista sênior — tem visão estratégica e conduz projetos</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_senioridade" id="rhs4" value="coord_gerente">
+                  <label for="rhs4"><span class="opt-mark"></span>Coordenador / Gerente — lidera a área e responde pela estratégia</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question">
+              <label>Há quanto tempo essa pessoa está na empresa?</label>
+              <div class="options-grid cols-2">
+                <div class="opt-card">
+                  <input type="radio" name="rh_tempo_casa" id="rtc1" value="menos_1ano">
+                  <label for="rtc1"><span class="opt-mark"></span>Menos de 1 ano</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_tempo_casa" id="rtc2" value="1_2anos">
+                  <label for="rtc2"><span class="opt-mark"></span>1 a 2 anos</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_tempo_casa" id="rtc3" value="3_5anos">
+                  <label for="rtc3"><span class="opt-mark"></span>3 a 5 anos</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_tempo_casa" id="rtc4" value="mais_5anos">
+                  <label for="rtc4"><span class="opt-mark"></span>Mais de 5 anos</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question">
+              <label>Quais frentes essa pessoa já cobre hoje?</label>
+              <span class="hint">Selecione tudo que se aplica — isso ajuda a entender onde a Azumi RH complementa, não duplica.</span>
+              <div class="options-grid cols-2">
+                <div class="opt-card check">
+                  <input type="checkbox" name="rh_cobre" id="rc_adm" value="adm_operacional">
+                  <label for="rc_adm"><span class="opt-mark"></span>Administrativo / operacional</label>
+                </div>
+                <div class="opt-card check">
+                  <input type="checkbox" name="rh_cobre" id="rc_rec" value="recrutamento">
+                  <label for="rc_rec"><span class="opt-mark"></span>Recrutamento e seleção</label>
+                </div>
+                <div class="opt-card check">
+                  <input type="checkbox" name="rh_cobre" id="rc_on" value="onboarding">
+                  <label for="rc_on"><span class="opt-mark"></span>Onboarding / integração</label>
+                </div>
+                <div class="opt-card check">
+                  <input type="checkbox" name="rh_cobre" id="rc_td" value="treinamento">
+                  <label for="rc_td"><span class="opt-mark"></span>T&D / treinamentos</label>
+                </div>
+                <div class="opt-card check">
+                  <input type="checkbox" name="rh_cobre" id="rc_clima" value="clima_engajamento">
+                  <label for="rc_clima"><span class="opt-mark"></span>Clima e engajamento</label>
+                </div>
+                <div class="opt-card check">
+                  <input type="checkbox" name="rh_cobre" id="rc_comp" value="compliance">
+                  <label for="rc_comp"><span class="opt-mark"></span>Compliance / NRs</label>
+                </div>
+                <div class="opt-card check">
+                  <input type="checkbox" name="rh_cobre" id="rc_psi" value="saude_mental">
+                  <label for="rc_psi"><span class="opt-mark"></span>Saúde mental / risco psicossocial</label>
+                </div>
+                <div class="opt-card check">
+                  <input type="checkbox" name="rh_cobre" id="rc_perf" value="performance">
+                  <label for="rc_perf"><span class="opt-mark"></span>Avaliação de desempenho</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question">
+              <label>O que essa pessoa mais precisa da Azumi RH?</label>
+              <span class="hint">Isso define se a Azumi entra como parceira estratégica, como gestora direta ou como mentora do RH interno.</span>
+              <div class="options-grid cols-1">
+                <div class="opt-card">
+                  <input type="radio" name="rh_necessidade" id="rn1" value="gestao_direta">
+                  <label for="rn1"><span class="opt-mark"></span>Gestão direta — precisa de alguém que assuma frentes que ela não dá conta</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_necessidade" id="rn2" value="mentoria_dev">
+                  <label for="rn2"><span class="opt-mark"></span>Mentoria e desenvolvimento — está crescendo e precisa de orientação técnica</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_necessidade" id="rn3" value="parceria_estrategica">
+                  <label for="rn3"><span class="opt-mark"></span>Parceria estratégica — ela é sênior, precisa de alguém para co-construir com ela</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_necessidade" id="rn4" value="supervisao">
+                  <label for="rn4"><span class="opt-mark"></span>Supervisão técnica — existe entrega mas sem alinhamento estratégico com a liderança</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="question">
+              <label>Essa pessoa está aberta à parceria com consultoria externa?</label>
+              <span class="hint">A receptividade do RH interno impacta diretamente a velocidade de implementação.</span>
+              <div class="options-grid cols-1">
+                <div class="opt-card">
+                  <input type="radio" name="rh_abertura" id="ra_s1" value="sim_entusiasmada">
+                  <label for="ra_s1"><span class="opt-mark"></span>Sim, muito — entende que é uma parceria e quer crescer junto</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_abertura" id="ra_s2" value="sim_neutra">
+                  <label for="ra_s2"><span class="opt-mark"></span>Sim, mas neutro(a) — ainda avaliando como vai funcionar</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_abertura" id="ra_s3" value="resistencia_leve">
+                  <label for="ra_s3"><span class="opt-mark"></span>Resistência leve — sente que pode parecer que "está sendo substituído(a)"</label>
+                </div>
+                <div class="opt-card">
+                  <input type="radio" name="rh_abertura" id="ra_s4" value="nao_sei">
+                  <label for="ra_s4"><span class="opt-mark"></span>Não sei / ainda não conversei com ela sobre isso</label>
+                </div>
+              </div>
+            </div>
+            <hr class="q-divider">
+          </div>
+          <!-- fim bloco RH interno -->
 
           <div class="question">
             <label>Os processos e políticas de RH estão documentados?</label>
@@ -1575,6 +1710,13 @@
     updateProgress();
   }
 
+  // ★ Mostrar/ocultar bloco RH interno
+  function onRhAtual(val) {
+    const bloco = document.getElementById('bloco-rh-interno');
+    bloco.style.display = (val === 'rh_interno' || val === 'rh_operacional' || val === 'psicologa') ? 'block' : 'none';
+    updateProgress();
+  }
+
   // Mostrar/ocultar blocos de visita conforme seleção
   document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('input[name="tipo_consultora"]').forEach(radio => {
@@ -1645,7 +1787,7 @@
     const form = document.getElementById('mainForm');
     const data = {};
     const fd = new FormData(form);
-    const multiFields = ['plataformas', 'frentes'];
+    const multiFields = ['plataformas', 'frentes', 'rh_cobre'];
     multiFields.forEach(f => data[f] = []);
     for (let [k, v] of fd.entries()) {
       if (multiFields.includes(k)) {
@@ -1677,7 +1819,16 @@
     body += `🗂 RH ATUAL\n${sep}\n`;
     body += `Estrutura:     ${data.rh_atual || '-'}\n`;
     body += `Documentação:  ${data.docs_rh || '-'}\n`;
-    body += `Plataformas:   ${(data.plataformas||[]).join(', ') || '-'}\n\n`;
+    body += `Plataformas:   ${(data.plataformas||[]).join(', ') || '-'}\n`;
+    if (data.rh_atual && data.rh_atual !== 'sem_rh') {
+      body += `\n  → PERFIL DO RH INTERNO\n`;
+      body += `  Senioridade:   ${data.rh_senioridade || '-'}\n`;
+      body += `  Tempo de casa: ${data.rh_tempo_casa || '-'}\n`;
+      body += `  Frentes cobertas: ${(data.rh_cobre||[]).join(', ') || '-'}\n`;
+      body += `  Necessidade:   ${data.rh_necessidade || '-'}\n`;
+      body += `  Abertura:      ${data.rh_abertura || '-'}\n`;
+    }
+    body += `\n`;
     body += `🔍 RECRUTAMENTO\n${sep}\n`;
     body += `Dificuldade:        ${data.dif_contratar || '-'}\n`;
     body += `Processo seletivo:  ${data.processo_seletivo || '-'}\n\n`;
