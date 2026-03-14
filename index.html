@@ -877,8 +877,26 @@
           <hr class="q-divider">
 
           <div class="question">
-            <label>Visitas presenciais da consultora — quantas por mês você idealizaria? <span class="req">*</span></label>
-            <span class="hint">Cada visita tem duração de até 3 horas e influencia diretamente na quantidade de reuniões mensais do contrato.</span>
+            <label>Deseja visitas presenciais? Se sim, qual perfil de consultora? <span class="req">*</span></label>
+            <span class="hint">As visitas têm duração de até 3 horas cada.</span>
+            <div class="options-grid cols-1">
+              <div class="opt-card">
+                <input type="radio" name="tipo_consultora" id="tc1" value="consultora_conta">
+                <label for="tc1"><span class="opt-mark"></span>Sim — consultora/gestora de conta da Azumi RH</label>
+              </div>
+              <div class="opt-card">
+                <input type="radio" name="tipo_consultora" id="tc2" value="patricia_fundadora">
+                <label for="tc2"><span class="opt-mark"></span>Sim — Patrícia (fundadora da Azumi RH)</label>
+              </div>
+              <div class="opt-card">
+                <input type="radio" name="tipo_consultora" id="tc3" value="remoto">
+                <label for="tc3"><span class="opt-mark"></span>Não — prefiro atendimento 100% remoto</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="question" id="bloco-visitas" style="display:none">
+            <label>Quantas visitas presenciais por mês?</label>
             <div class="options-grid cols-2">
               <div class="opt-card">
                 <input type="radio" name="visitas_mes" id="vis1" value="1x">
@@ -888,32 +906,23 @@
                 <input type="radio" name="visitas_mes" id="vis2" value="2x">
                 <label for="vis2"><span class="opt-mark"></span>2x por mês</label>
               </div>
-              <div class="opt-card">
-                <input type="radio" name="visitas_mes" id="vis3" value="somente_remoto">
-                <label for="vis3"><span class="opt-mark"></span>Prefiro atendimento remoto</label>
-              </div>
-              <div class="opt-card">
-                <input type="radio" name="visitas_mes" id="vis4" value="a_definir">
-                <label for="vis4"><span class="opt-mark"></span>A definir conforme necessidade</label>
-              </div>
             </div>
           </div>
 
-          <div class="question">
-            <label>A empresa fica em Curitiba ou região metropolitana?</label>
-            <span class="hint">Para cidades fora de Curitiba e região metropolitana (ex: São José dos Pinhais, Pinhais e demais municípios), há adicional por km rodado nas visitas presenciais.</span>
+          <div class="question" id="bloco-localizacao" style="display:none">
+            <label>Localização da empresa para fins de deslocamento</label>
             <div class="options-grid cols-1">
               <div class="opt-card">
-                <input type="radio" name="localizacao_visita" id="loc1" value="curitiba">
-                <label for="loc1"><span class="opt-mark"></span>Sim — Curitiba ou região metropolitana (sem adicional de deslocamento)</label>
+                <input type="radio" name="localizacao_visita" id="loc1" value="cwb_sjp_pinhais">
+                <label for="loc1"><span class="opt-mark"></span>Curitiba, São José dos Pinhais ou Pinhais — sem custo adicional de deslocamento</label>
               </div>
               <div class="opt-card">
-                <input type="radio" name="localizacao_visita" id="loc2" value="fora_regiao">
-                <label for="loc2"><span class="opt-mark"></span>Não — cidade fora da região metropolitana (adicional por km aplicável)</label>
+                <input type="radio" name="localizacao_visita" id="loc2" value="outra_regiao_pr">
+                <label for="loc2"><span class="opt-mark"></span>Outra cidade da região (ex: Araucária, Fazenda Rio Grande) — adicional de deslocamento incluído no contrato</label>
               </div>
               <div class="opt-card">
-                <input type="radio" name="localizacao_visita" id="loc3" value="remoto_apenas">
-                <label for="loc3"><span class="opt-mark"></span>Atendimento 100% remoto — não haverá visitas presenciais</label>
+                <input type="radio" name="localizacao_visita" id="loc3" value="fora_pr">
+                <label for="loc3"><span class="opt-mark"></span>Fora do Paraná ou outra região — locomoção, hospedagem e passagem 100% custeadas pela empresa contratante</label>
               </div>
             </div>
           </div>
@@ -1568,6 +1577,24 @@
     updateProgress();
   }
 
+  // Mostrar/ocultar blocos de visita conforme seleção
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('input[name="tipo_consultora"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const blocoVisitas = document.getElementById('bloco-visitas');
+        const blocoLocal = document.getElementById('bloco-localizacao');
+        if (this.value === 'remoto') {
+          blocoVisitas.style.display = 'none';
+          blocoLocal.style.display = 'none';
+        } else {
+          blocoVisitas.style.display = 'block';
+          blocoLocal.style.display = 'block';
+        }
+      });
+    });
+    updateProgress();
+  });
+
   function setScale(btn) {
     const name = btn.dataset.name;
     const val = btn.dataset.val;
@@ -1647,7 +1674,7 @@
     body += `Colaboradores: ${data.num_colaboradores || '-'}\n`;
     body += `Unidades:      ${data.num_unidades || '-'}\n`;
     body += `Vagas/mês:     ${data.vagas_mes || '-'}\n`;
-    body += `Visitas/mês:   ${data.visitas_mes || '-'}\n`;
+    body += `Visitas:       ${data.tipo_consultora || '-'} · ${data.visitas_mes || '-'}\n`;
     body += `Localização:   ${data.localizacao_visita || '-'}\n\n`;
     body += `🗂 RH ATUAL\n${sep}\n`;
     body += `Estrutura:     ${data.rh_atual || '-'}\n`;
@@ -1745,4 +1772,11 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  document.querySelectorAll('input, select, textarea').forEac
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('change', updateProgress);
+    el.addEventListener('input', updateProgress);
+  });
+
+</script>
+</body>
+</html>
